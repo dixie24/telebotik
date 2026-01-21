@@ -20,3 +20,13 @@ def echo_all(message):
 
 # Запуск бота (будет работать, пока не выключишь программу)
 bot.infinity_polling()
+
+
+
+@bot.message_handler(commands=['menu'])
+def show_menu(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("🚀 Мой профиль")
+    btn2 = types.KeyboardButton("❓ Помощь")
+    markup.add(btn1, btn2)
+    bot.send_message(message.chat.id, "Выбери пункт меню:", reply_markup=markup)
