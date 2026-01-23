@@ -67,3 +67,11 @@ def delete_msg(message):
     tmp = bot.send_message(message.chat.id, "Это сообщение самоликвидируется...")
     import threading
     threading.Timer(5, lambda: bot.delete_message(message.chat.id, tmp.message_id)).start()
+
+@bot.message_handler(content_types=['photo'])
+def handle_photo(message):
+    bot.reply_to(message, "Ого, классное фото! Сохраню себе в архив Лиги Справедливости.")
+
+@bot.message_handler(content_types=['voice'])
+def handle_voice(message):
+    bot.reply_to(message, "Я слышу твой голос, но пока не научился распознавать речь. Попробуй написать текстом!")
