@@ -56,3 +56,14 @@ def process_name_step(message):
 def process_power_step(message):
     power = message.text
     bot.send_message(message.chat.id, f"Записал: {power}. Теперь я знаю о тебе всё!")
+
+
+@bot.message_handler(commands=['clear'])
+def delete_msg(message):
+    # Удаляет сообщение пользователя, которое содержало команду
+    bot.delete_message(message.chat.id, message.message_id)
+    
+    # Отправляет новое и удаляет его через 5 секунд
+    tmp = bot.send_message(message.chat.id, "Это сообщение самоликвидируется...")
+    import threading
+    threading.Timer(5, lambda: bot.delete_message(message.chat.id, tmp.message_id)).start()
