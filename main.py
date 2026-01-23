@@ -30,3 +30,29 @@ def show_menu(message):
     btn2 = types.KeyboardButton("❓ Помощь")
     markup.add(btn1, btn2)
     bot.send_message(message.chat.id, "Выбери пункт меню:", reply_markup=markup)
+
+    @bot.message_handler(commands=['reg'])
+def start_reg(message):
+    msg = bot.send_message(message.chat.id, "Как тебя зовут, герой?")
+    bot.register_next_step_handler(msg, process_name_step)
+
+def process_name_step(message):
+    name = message.text
+    msg = bot.send_message(message.chat.id, f"Приятно познакомиться, {name}! А какая у тебя суперсила?")
+    bot.register_next_step_handler(msg, process_power_step)
+
+def process_power_step(message):
+    power = message.text
+    bot.send_message(message.chat.id, f"Записал: {power}. Теперь я знаю о тебе всё!")@bot.message_handler(commands=['reg'])
+def start_reg(message):
+    msg = bot.send_message(message.chat.id, "Как тебя зовут, герой?")
+    bot.register_next_step_handler(msg, process_name_step)
+
+def process_name_step(message):
+    name = message.text
+    msg = bot.send_message(message.chat.id, f"Приятно познакомиться, {name}! А какая у тебя суперсила?")
+    bot.register_next_step_handler(msg, process_power_step)
+
+def process_power_step(message):
+    power = message.text
+    bot.send_message(message.chat.id, f"Записал: {power}. Теперь я знаю о тебе всё!")
