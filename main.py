@@ -75,3 +75,13 @@ def handle_photo(message):
 @bot.message_handler(content_types=['voice'])
 def handle_voice(message):
     bot.reply_to(message, "Я слышу твой голос, но пока не научился распознавать речь. Попробуй написать текстом!")
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request) # Передаем запрос дальше
+    process_time = time.time() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    print(f"Запрос обработан за: {process_time:.4f} сек")
+    return response
