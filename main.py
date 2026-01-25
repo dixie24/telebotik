@@ -85,3 +85,15 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     print(f"Запрос обработан за: {process_time:.4f} сек")
     return response
+
+
+@app.post("/upload-map/")
+async def upload_secret_map(file: UploadFile = File(...)):
+    # file.filename - имя файла
+    # file.file - сам объект файла для чтения
+    contents = await file.read() 
+    return {
+        "filename": file.filename, 
+        "size": len(contents),
+        "content_type": file.content_type
+    }
