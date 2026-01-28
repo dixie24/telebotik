@@ -97,3 +97,9 @@ async def upload_secret_map(file: UploadFile = File(...)):
         "size": len(contents),
         "content_type": file.content_type
     }
+
+@bot.message_handler(func=lambda message: message.entities is not None)
+def handle_links(message):
+    for entity in message.entities:
+        if entity.type == 'url':
+            bot.reply_to(message, "Вижу ссылку! Главное, чтобы там не было ловушки с криптонитом. 🦸‍♂️")
