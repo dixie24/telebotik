@@ -103,3 +103,19 @@ def handle_links(message):
     for entity in message.entities:
         if entity.type == 'url':
             bot.reply_to(message, "Вижу ссылку! Главное, чтобы там не было ловушки с криптонитом. 🦸‍♂️")
+
+            @bot.message_handler(commands=['share'])
+def share_info(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    # Кнопки запроса данных
+    btn_phone = types.KeyboardButton("📱 Отправить номер", request_contact=True)
+    btn_geo = types.KeyboardButton("📍 Отправить локацию", request_location=True)
+    markup.add(btn_phone, btn_geo)
+    bot.send_message(message.chat.id, "Супермен, подтверди свои координаты:", reply_markup=markup)
+
+# Обработка полученной локации
+@bot.message_handler(content_types=['location'])
+def handle_location(message):
+    lat = message.location.latitude
+    lon = message.location.longitude
+    bot.send_message(message.chat.id, f"Координаты получены: {lat}, {lon}. Вылетаю!")
