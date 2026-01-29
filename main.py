@@ -129,3 +129,22 @@ def send_secret(message):
         "Поторопись, Супермен\!"
     )
     bot.send_message(message.chat.id, text, parse_mode='MarkdownV2')
+
+@bot.message_handler(commands=['album'])
+def send_album(message):
+    photo1 = 'https://example.com/photo1.jpg'
+    photo2 = 'https://example.com/photo2.jpg'
+    bot.send_media_group(message.chat.id, [
+        types.InputMediaPhoto(photo1, caption="Вот твои улики, Супермен!"),
+        types.InputMediaPhoto(photo2)
+    ])
+
+@bot.message_handler(commands=['ask'])
+def ask_question(message):
+    markup = types.ForceReply(selective=False)
+    bot.send_message(message.chat.id, "В каком городе нужна твоя помощь?", reply_markup=markup)
+
+# Этот обработчик поймает любой ответ на сообщение выше
+@bot.message_handler(func=lambda message: message.reply_to_message and "В каком городе" in message.reply_to_message.text)
+def get_city(message):
+    bot.reply_to(message, f"Принято! Вылетаю в {message.text}!")
