@@ -119,3 +119,13 @@ def handle_location(message):
     lat = message.location.latitude
     lon = message.location.longitude
     bot.send_message(message.chat.id, f"Координаты получены: {lat}, {lon}. Вылетаю!")
+
+
+@bot.message_handler(commands=['secret'])
+def send_secret(message):
+    text = (
+        "*Важное сообщение:*\n"
+        "||Тут секретный код от базы|| \n"
+        "Поторопись, Супермен\!"
+    )
+    bot.send_message(message.chat.id, text, parse_mode='MarkdownV2')
