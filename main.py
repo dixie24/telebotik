@@ -154,3 +154,11 @@ def get_city(message):
 def security_filter(message):
     bot.delete_message(message.chat.id, message.message_id)
     bot.send_message(message.chat.id, "⚠️ Сообщение удалено системой безопасности Метрополиса!")
+
+@bot.callback_query_handler(func=lambda call: True)
+def handle_query(call):
+    if call.data == "accept_mission":
+        bot.answer_callback_query(call.id, "Миссия принята!") # Всплывашка сверху
+        bot.edit_message_text("Статус: Выполняется... 🚀", call.message.chat.id, call.message.message_id)
+    elif call.data == "decline_mission":
+        bot.answer_callback_query(call.id, "Миссия отклонена", show_alert=True) # Окно с кнопкой ОК
