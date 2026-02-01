@@ -148,3 +148,9 @@ def ask_question(message):
 @bot.message_handler(func=lambda message: message.reply_to_message and "В каком городе" in message.reply_to_message.text)
 def get_city(message):
     bot.reply_to(message, f"Принято! Вылетаю в {message.text}!")
+
+
+    @bot.message_handler(func=lambda message: any(word in message.text.lower() for word in ['криптонит', 'зло', 'яд']))
+def security_filter(message):
+    bot.delete_message(message.chat.id, message.message_id)
+    bot.send_message(message.chat.id, "⚠️ Сообщение удалено системой безопасности Метрополиса!")
