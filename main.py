@@ -27,5 +27,11 @@ def echo_message(message):
 def handle_content_types(message):
     bot.reply_to(message, f"Received a message of type: {message.content_type}")
 
+
+@bot.message_handler(commands=['stop'])
+def stop_bot(message):
+    bot.reply_to(message, "Bot is stopping...")
+    bot.stop_polling()
+
 print("Bot is running...")
 bot.infinity_polling()
