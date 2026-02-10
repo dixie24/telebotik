@@ -39,5 +39,10 @@ def restart_bot(message):
     bot.stop_polling()
     bot.infinity_polling()
 
+
+@bot.message_handler(content_types=['text', 'photo', 'document'])
+def handle_content_types(message):
+    bot.reply_to(message, f"Received a message of type: {message.content_type}")
+
 print("Bot is running...")
 bot.infinity_polling()
