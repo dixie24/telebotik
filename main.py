@@ -33,5 +33,11 @@ def stop_bot(message):
     bot.reply_to(message, "Bot is stopping...")
     bot.stop_polling()
 
+@bot.message_handler(commands=['restart'])
+def restart_bot(message):
+    bot.reply_to(message, "Bot is restarting...")
+    bot.stop_polling()
+    bot.infinity_polling()
+
 print("Bot is running...")
 bot.infinity_polling()
