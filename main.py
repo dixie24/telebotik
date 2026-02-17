@@ -39,6 +39,12 @@ def restart_bot(message):
     bot.stop_polling()
     bot.infinity_polling()
 
+
+@bot.message_reaction_count_handler(func=lambda message: message.reactions and len(message.reactions) > 0)
+def handle_reactions(message):
+    bot.reply_to(message, f"Received {len(message.reactions)} reactions!")
+
+
 @bot.add_business_connection_handler(commands=['business'])
 def handle_business_connection(message):
     bot.reply_to(message, "Business connection handler triggered!")
