@@ -1,7 +1,7 @@
 import telebot 
 
 
-TOKEN = "1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+TOKEN = "8551310109:AAE9wuLxosdtCE9SI9PYzin5n_SfE2O-ER0"
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -39,6 +39,9 @@ def restart_bot(message):
     bot.stop_polling()
     bot.infinity_polling()
 
+@bot.add_business_connection_handler(commands=['business'])
+def handle_business_connection(message):
+    bot.reply_to(message, "Business connection handler triggered!")
 
 @bot.message_handler(content_types=['text', 'photo', 'document'])
 def handle_content_types(message):
